@@ -1,99 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RentRide</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        header {
-            background: #007bff;
-            color: white;
-            padding: 20px;
-        }
-
-        h1 {
-            margin: 0;
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        .vehicle {
-            background: white;
-            padding: 15px;
-            margin: 10px auto;
-            width: 300px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        button {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background: #218838;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RentRide — Rent Any Vehicle, Anywhere in India</title>
+  <link rel="stylesheet" href="frontend/css/style.css" />
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .feature-card { padding: 1.75rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); transition: border-color 0.25s, transform 0.25s; }
+    .feature-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .feature-card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .cta-band { background: linear-gradient(135deg, rgba(255,92,0,0.15) 0%, rgba(255,92,0,0.05) 100%); border: 1px solid rgba(255,92,0,0.2); border-radius: var(--radius-lg); padding: 3rem 2rem; text-align: center; margin: 4rem 2rem; }
+    .cta-band h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .cta-band p { color: var(--text-muted); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .popular-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+  </style>
 </head>
 <body>
+  <nav class="navbar" id="navbar"></nav>
 
-<header>
-    <h1>🚗 RentRide</h1>
-    <p>Vehicle Rental System</p>
-</header>
+  <div class="page">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-content">
+        <div class="hero-badge"><div class="badge-dot"></div> Now available in 50+ cities across India</div>
+        <h1>Rent Any Vehicle,<br><span class="accent">Anywhere in India</span></h1>
+        <p class="hero-sub">Cars, bikes, SUVs, scooters and more — at your fingertips. No hidden charges. Cancel anytime.</p>
+        <div class="hero-ctas">
+          <a href="frontend/pages/vehicles.html" class="btn btn-primary btn-lg">Browse Vehicles</a>
+          <a href="frontend/pages/register.html" class="btn btn-outline btn-lg">Create Free Account</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">500+</div><div class="label">Vehicles</div></div>
+          <div class="hero-stat"><div class="num">50+</div><div class="label">Cities</div></div>
+          <div class="hero-stat"><div class="num">12k+</div><div class="label">Happy Renters</div></div>
+          <div class="hero-stat"><div class="num">4.9★</div><div class="label">Avg Rating</div></div>
+        </div>
+      </div>
+    </section>
 
-<div class="container">
-    <h2>Available Vehicles</h2>
-    <div id="vehicleList"></div>
-</div>
+    <!-- HOW IT WORKS -->
+    <div class="section">
+      <div class="section-head">
+        <div class="tag">How it works</div>
+        <h2>Drive in 3 simple steps</h2>
+        <p>From browsing to hitting the road — it takes less than 2 minutes.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-num">1</div><h3>Browse & Choose</h3><p>Explore hundreds of verified vehicles across India. Filter by city, type, and budget.</p></div>
+        <div class="how-card"><div class="how-num">2</div><h3>Book Instantly</h3><p>Select your dates, confirm pickup location, and book with a single click. No paperwork.</p></div>
+        <div class="how-card"><div class="how-num">3</div><h3>Pick Up & Go</h3><p>Arrive at your pickup point, verify your ID, grab the keys, and you're on your way.</p></div>
+        <div class="how-card"><div class="how-num">4</div><h3>Return & Review</h3><p>Return on time, share your experience, and earn loyalty rewards for next time.</p></div>
+      </div>
+    </div>
 
-<script>
-    // Fetch vehicles from backend
-    fetch('/vehicles')
-        .then(response => response.json())
-        .then(data => {
-            const container = document.getElementById('vehicleList');
+    <!-- POPULAR VEHICLES -->
+    <div class="section">
+      <div class="section-head" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem">
+        <div><div class="tag">Fleet</div><h2>Popular right now</h2></div>
+        <a href="frontend/pages/vehicles.html" class="btn btn-outline btn-sm">View all →</a>
+      </div>
+      <div class="popular-row" id="home-vehicles">
+        <div class="loading-center"><div class="spinner"></div></div>
+      </div>
+    </div>
 
-            if (data.length === 0) {
-                container.innerHTML = "<p>No vehicles available</p>";
-                return;
-            }
+    <!-- FEATURES -->
+    <div class="section">
+      <div class="section-head">
+        <div class="tag">Why RentRide</div>
+        <h2>Built for the modern traveller</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">🔐</div><h3>Secure Payments</h3><p>Your payment and personal data is always encrypted and protected with bank-grade security.</p></div>
+        <div class="feature-card"><div class="feature-icon">📍</div><h3>Pan-India Presence</h3><p>From metros to hill stations, we have vehicles available in 50+ cities across India.</p></div>
+        <div class="feature-card"><div class="feature-icon">⚡</div><h3>Instant Confirmation</h3><p>No waiting. Your booking is confirmed immediately and you receive a digital receipt.</p></div>
+        <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Fully Insured</h3><p>Every vehicle on our platform carries valid insurance. Drive with peace of mind.</p></div>
+        <div class="feature-card"><div class="feature-icon">📞</div><h3>24/7 Support</h3><p>Our team is always available to assist you on the road. Any time, any issue.</p></div>
+        <div class="feature-card"><div class="feature-icon">♻️</div><h3>Eco-Friendly Options</h3><p>Choose from our growing fleet of electric vehicles and contribute to a cleaner India.</p></div>
+      </div>
+    </div>
 
-            data.forEach(vehicle => {
-                const div = document.createElement('div');
-                div.className = 'vehicle';
+    <!-- CTA BAND -->
+    <div style="max-width:1200px;margin:0 auto">
+      <div class="cta-band">
+        <h2>Ready to hit the road?</h2>
+        <p>Join thousands of travellers who trust RentRide for their adventures across India.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+          <a href="frontend/pages/register.html" class="btn btn-primary btn-lg">Start for Free</a>
+          <a href="frontend/pages/vehicles.html" class="btn btn-outline btn-lg">Explore Fleet</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-                div.innerHTML = `
-                    <h3>${vehicle.name}</h3>
-                    <p>Type: ${vehicle.type}</p>
-                    <p>Price: ₹${vehicle.price}</p>
-                    <button>Book Now</button>
-                `;
+  <footer>
+    <div class="footer-logo">Rent<span>Ride</span></div>
+    <p>© 2024 RentRide India. All rights reserved. | Made with ❤️ in India</p>
+  </footer>
 
-                container.appendChild(div);
-            });
-        })
-        .catch(err => {
-            console.error(err);
-            document.getElementById('vehicleList').innerHTML = "Error loading vehicles";
-        });
-</script>
+  <div id="toast-container"></div>
+  <script src="frontend/js/app.js"></script>
+  <script>
+    renderNavbar('home');
 
+    async function loadHomeVehicles() {
+      try {
+        const vehicles = await api('GET', '/vehicles?available=true');
+        const container = document.getElementById('home-vehicles');
+        const featured = vehicles.slice(0, 4);
+        if (!featured.length) { container.innerHTML = '<p style="color:var(--text-muted)">No vehicles available.</p>'; return; }
+        container.innerHTML = featured.map(v => `
+          <div class="card vehicle-card" onclick="window.location='frontend/pages/vehicle-detail.html?id=${v.id}'">
+            <div class="vehicle-img">
+              <img src="${v.image_url || 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800'}" alt="${v.name}" loading="lazy" />
+              <div class="vehicle-badge">${typeIcon(v.type)} ${v.type}</div>
+              <div class="vehicle-avail ${v.availability ? 'yes' : 'no'}"></div>
+            </div>
+            <div class="vehicle-body">
+              <div class="vehicle-meta"><span>${v.brand || ''}</span><span>${v.fuel_type}</span><span>${v.seats} seats</span></div>
+              <div class="vehicle-name">${v.name}</div>
+              <div class="vehicle-loc">📍 ${v.location || 'India'}</div>
+              <div class="vehicle-footer">
+                <div class="vehicle-price"><span class="amount">${formatCurrency(v.price_per_day)}</span><span class="per"> / day</span></div>
+                <button class="btn btn-primary btn-sm">Book Now</button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } catch(e) {
+        document.getElementById('home-vehicles').innerHTML = '<p style="color:var(--text-muted)">Could not load vehicles. Is the server running?</p>';
+      }
+    }
+
+    loadHomeVehicles();
+  </script>
 </body>
 </html>
